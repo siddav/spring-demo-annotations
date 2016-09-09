@@ -1,5 +1,8 @@
 package com.sidda;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Component;
  * field injection
  */
 @Component
+//@Scope("prototype")
 public class TennisCoach implements Coach {
     @Autowired
     @Qualifier("fileFortuneService")
@@ -23,6 +27,10 @@ public class TennisCoach implements Coach {
         System.out.println("TennisCoach: inside default constructor");
     }
 
+    @PostConstruct
+    public void doMyStartUpStuff() {
+        System.out.println("doMyStartUpStuff");
+    }
     @Override
     public String getDailyWorkOut() {
         return "practise your backhand volley";
@@ -43,4 +51,8 @@ public class TennisCoach implements Coach {
     //        System.out.println("TennisCoach: inside dosomeCrazystuff");
     //        this.fortuneService = fortuneService;
     //    }
+    @PreDestroy
+    public void doMyCleanUpStuff() {
+        System.out.println("doMyCleanUpStuff");
+    }
 }
